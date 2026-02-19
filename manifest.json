@@ -3,8 +3,8 @@
   "short_name": "入出記録",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#102C57",
+  "background_color": "#000",
+  "theme_color": "#f7f1e9",
   "icons": [
     {
       "src": "img/img192.png",
