@@ -102,6 +102,9 @@ header{
     h1{
         font-size: 22px;
         font-weight: 500;
+        @include mq(sm) {
+            line-height:75px;
+        }
     }
     p{
         margin-left:5%;
@@ -141,7 +144,7 @@ header{
     }
     .sm_header_navlist{
         display:flex;
-        margin-top:-15px;
+        margin-top:0px;
         .sm_navlist_item{
             flex:1;
             font-size:13px;

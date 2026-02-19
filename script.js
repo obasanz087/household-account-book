@@ -24,7 +24,7 @@ const categoryOptions = {
     ],
     income: [
         { value: 'salary', label: '給与' },
-        { value: 'income', label: 'お小遣い' },
+        { value: 'income', label: 'おこづかい' },
         { value: 'carry_over', label: '繰越金' },
         { value: 'other', label: 'その他収入' }
     ]
