@@ -463,6 +463,9 @@ main #transaction-table td {
 main #transaction-table tr:hover {
   background-color: #f7f1e9;
 }
+main #transaction-table tbody {
+  font-family: "Lato", "Noto Sans JP", sans-serif;
+}
 main .history-item {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -493,7 +496,7 @@ footer {
   position: relative;
 }
 footer .copyright {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 100px;
   color: #a8a8a8;
 }
@@ -531,6 +534,23 @@ footer #logout-btn:hover {
 }
 @media screen and (max-width: 599px) {
   footer #logout-btn {
+    top: 50%;
+  }
+}
+footer a {
+  position: absolute;
+  top: 80%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 120px;
+  font-family: "Lato", sans-serif;
+  color: #a8a8a8;
+}
+footer a:hover {
+  color: #102C57;
+}
+@media screen and (max-width: 599px) {
+  footer a {
     top: 50%;
   }
 }

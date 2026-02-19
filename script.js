@@ -127,7 +127,7 @@ function updateHistoryDisplay() {
     }
 
     // 繰越金表示 (1月の時だけエリアがある場合に表示)
-    if (currentMonth === 1) {
+    if (currentMonth === 'annual') {
         updateText('carry-over-display', `前年からの繰越: ¥ ${carryOverAmount.toLocaleString()}`);
     }
 
@@ -505,7 +505,7 @@ function setDiffText(id, val, isExp) {
     const el = document.getElementById(id);
     if (!el) return;
     const sign = val > 0 ? "+" : "";
-    el.innerText = `${sign}${val.toLocaleString()}円`;
+    el.innerText = `¥ ${sign}${val.toLocaleString()}`;
     if (isExp) el.style.color = val > 0 ? "#d95252" : "#3d9b3d";
     else el.style.color = val > 0 ? "#3d9b3d" : "#d95252";
 }
