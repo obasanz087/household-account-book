@@ -1,0 +1,269 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>入出金記録</title>
+    <link rel="stylesheet" href="destyle.css">
+    <link rel="stylesheet" href="style.css">
+    <!--supabase-->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato,wght@100;300;400;700;900&family=Noto+Sans+JP:wght@100..900&display=swap"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, viewport-fit=cover">
+
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="家計簿">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <script>
+        // サービスワーカーの登録
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker Registered'));
+        }
+    </script>
+
+</head>
+<body>
+    <div id="auth-container">
+        <div class="auth_box">
+            <h2 id="auth-title"><span>入出金記録</span> へようこそ！</h2>
+            <form id="auth-form">
+                <input type="email" id="auth-email" placeholder="メールアドレス" required>
+                <input type="password" id="auth-password" placeholder="パスワード" required>
+                <button type="submit" id="auth-submit-btn">ログイン</button>
+            </form>
+            <p id="auth-toggle">新規登録はこちら</p>
+            <p class="auth-copyright">© 2026 入出金記録.</p>
+        </div>
+    </div>
+    <div id="app-container">
+        <header>
+            <h1>入出金記録</h1>
+            <ul class="header__navlist">
+                <li><a href="index.html#summary_container">ダッシュボード</a></li>
+                <li><a href="index.html#register_container">収支登録</a></li>
+                <li><a href="index.html#history_container">登録履歴</a></li>
+            </ul>
+            <div class="sm_header_navlist">
+                <div class="sm_navlist_item ">
+                    <a href="index.html#summary_container">ダッシュボード</a>
+                </div>
+                <div class="sm_navlist_item center">
+                    <a href="index.html#register_container">収支登録</a>
+                </div>
+                <div class="sm_navlist_item">
+                    <a href="index.html#history_container">登録履歴</a>
+                </div>
+        </header>
+        <main>
+            <section id="summary_container">
+                <h2>ダッシュボード</h2>
+                <div class="year_select_wrapper">
+                    <button  type="button" id="prev-year"></button>
+                    <span id="display-year">2026</span>
+                    <button type="button" id="next-year"></button>
+                </div>
+                <div class="month_select_wrapper">
+                    <button type="button" class="month_btn" data-month="annual">サマリー</button>
+                    <button type="button" class="month_btn" data-month="1">1月</button>
+                    <button type="button" class="month_btn" data-month="2">2月</button>
+                    <button type="button" class="month_btn" data-month="3">3月</button>
+                    <button type="button" class="month_btn" data-month="4">4月</button>
+                    <button type="button" class="month_btn" data-month="5">5月</button>
+                    <button type="button" class="month_btn" data-month="6">6月</button>
+                    <button type="button" class="month_btn" data-month="7">7月</button>
+                    <button type="button" class="month_btn" data-month="8">8月</button>
+                    <button type="button" class="month_btn" data-month="9">9月</button>
+                    <button type="button" class="month_btn" data-month="10">10月</button>
+                    <button type="button" class="month_btn" data-month="11">11月</button>
+                    <button type="button" class="month_btn" data-month="12">12月</button>
+                </div>
+                <div class="smm_grid_wrapper">
+                    <div class="grid_inner amount">
+                        <h3>支出</h3>
+                        <p class="grid_yen" id="display-expense">¥ 0</p>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper js-diff-label">
+                                前月比
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="prev-diff-expense">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                食費
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-food">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                交通費
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-transport">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                交際費
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-entertainment">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                その他支出
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-other-exp">¥ 0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_inner s2">
+                        <h3>収入</h3>
+                        <p class="grid_yen" id="display-income">¥ 0</p>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper js-diff-label">
+                                前月比
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="prev-diff-income">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                バイト
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-salary">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                おこづかい
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-pocket-money">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                その他収入
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-other-inc">¥ 0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_inner s3">
+                        <h3>収入 - 支出</h3>
+                        <p class="grid_yen" id="display-diff">¥ 0</p>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper js-diff-label">
+                                前月比
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="prev-diff-net">¥ 0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid_inner s4">
+                        <h3>現在の残高</h3>
+                        <p class="grid_yen" id="display-total">¥ 0</p>
+                        <p id="carry-over-display">¥ 0</p>
+                    </div>
+                    <div class="grid_inner graph">
+                        <h3>グラフ</h3>
+                        <div class="chart" id="expense-chart-container">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                        <div class="chart line-chart" id="annual-chart-container">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="register_container">
+                <h2>収支登録</h2>
+                <form id="money-form" class="register_form">
+                    <div class="form_group">
+                        <label class="req">収支選択</label>
+                        <div class="radio_wrapper">
+                            <input type="radio" id="type-expense" name="transaction-type" value="expense" checked >
+                            <label for="type-expense">支出</label>
+                
+                            <input type="radio" id="type-income" name="transaction-type" value="income">
+                            <label for="type-income">収入</label>
+                        </div>
+                    </div>
+                
+                    <div class="form_group">
+                        <label for="date" class="req">日付</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                
+                    <div class="form_group">
+                        <label for="amount" class="req">金額</label>
+                        <input type="number" id="amount" name="amount" placeholder="金額を入力" required>
+                        <p class="yen_char">円</p>
+                    </div>
+                
+                    <div class="form_group">
+                        <label for="category" class="req category">カテゴリー</label>
+                        <select id="category" name="category" required>
+                        </select>
+                    </div>
+                
+                    <div class="form_group">
+                        <label for="memo">メモ</label>
+                        <textarea id="memo" name="memo" placeholder="備考を入力"></textarea>
+                    </div>
+                
+                    <button type="submit" class="submit_btn">保存する</button>
+                </form>
+            </section>
+            <section id="history_container">
+                <h2>登録履歴</h2>
+                <div class="table-wrapper">
+                    <table id="transaction-table">
+                        <thead>
+                            <tr>
+                                <th>日付</th>
+                                <th>カテゴリー</th>
+                                <th>金額</th>
+                                <th>メモ</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-list">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+        <footer>
+            <p class="copyright">© 2026 入出金記録.</p>
+            <p class="message">2026/02/18　彼女との別れがつらすぎて作ったんだよ。将来の自分、覚えておいてね</p>
+            <div id="app-container foot">
+                <button id="logout-btn">ログアウト</button>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
