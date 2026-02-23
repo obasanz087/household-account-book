@@ -445,7 +445,7 @@ main .table-wrapper {
 }
 main #transaction-table {
   width: 100%;
-  min-width: 750px;
+  min-width: 800px;
   border-collapse: collapse;
   /* 枠線を1本にまとめる */
   font-size: 14px;
