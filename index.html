@@ -122,6 +122,22 @@
                         </div>
                         <div class="grid_inner-flex_wrapper">
                             <div class="grid_inner-flex_wrapper">
+                                趣味嗜好
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-hobby">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
+                                サブスク
+                            </div>
+                            <div class="grid_inner-flex_wrapper">
+                                <p id="cat-subsc">¥ 0</p>
+                            </div>
+                        </div>
+                        <div class="grid_inner-flex_wrapper">
+                            <div class="grid_inner-flex_wrapper">
                                 その他支出
                             </div>
                             <div class="grid_inner-flex_wrapper">
@@ -240,7 +256,27 @@
                         <thead>
                             <tr>
                                 <th>日付</th>
-                                <th>カテゴリー</th>
+                                <th>
+                                    <div class="filter_wrapper">
+                                        <select id="filter-category" class="filter_select">
+                                            <option value="all">カテゴリー</option>
+                                            <optgroup label="支出">
+                                                <option value="food">食費</option>
+                                                <option value="transport">交通費</option>
+                                                <option value="entertainment">交際費</option>
+                                                <option value="hobby">趣味・嗜好</option>
+                                                <option value="subsc">サブスク</option>
+                                                <option value="other">その他支出</option>
+                                            </optgroup>
+                                            <optgroup label="収入">
+                                                <option value="salary">給与</option>
+                                                <option value="income">お小遣い</option>
+                                                <option value="carry_over">繰越金</option>
+                                                <option value="other">その他収入</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </th>
                                 <th>金額</th>
                                 <th>メモ</th>
                                 <th>操作</th>

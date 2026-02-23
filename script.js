@@ -13,6 +13,7 @@ let lineChart = null;
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth() + 1;
 const moneyForm = document.getElementById('money-form');
+let currentCategory = 'all';
 
 // カテゴリーの定義
 const categoryOptions = {
@@ -20,6 +21,8 @@ const categoryOptions = {
         { value: 'food', label: '食費' },
         { value: 'transport', label: '交通費' },
         { value: 'entertainment', label: '交際費' },
+        { value: 'hobby', label: '趣味・嗜好' },
+        { value: 'subsc', label: 'サブスク' },
         { value: 'other', label: 'その他支出' }
     ],
     income: [
@@ -55,15 +58,15 @@ function updateHistoryDisplay() {
     // 選択中の年・月に一致するデータのみ抽出
     const filteredHistory = history.filter(item => {
         const d = new Date(item.date);
-        const isYearMatch = d.getFullYear() === currentYear;
-        const isMonthMatch = (d.getMonth() + 1) === currentMonth;
 
-        // currentMonth が 'annual' なら「年」だけチェック、そうでなければ「年と月」をチェック
-        if (currentMonth === 'annual') {
-            return isYearMatch;
-        } else {
-            return isYearMatch && isMonthMatch;
-        }
+        // 年月の判定
+        const isYearMatch = d.getFullYear() === currentYear;
+        const isMonthMatch = (currentMonth === 'annual') || ((d.getMonth() + 1) === currentMonth);
+
+        // 【追加】カテゴリーの判定
+        const isCategoryMatch = (currentCategory === 'all') || (item.category === currentCategory);
+
+        return isYearMatch && isMonthMatch && isCategoryMatch;
     });
 
     // --- ② 集計処理 ---
@@ -72,7 +75,7 @@ function updateHistoryDisplay() {
     let totalIncome = 0;
     let totalExpense = 0;
     let carryOverAmount = 0; // 繰越金カテゴリー用
-    let catTotals = { food: 0, transport: 0, entertainment: 0, otherExp: 0, salary: 0, pocketMoney: 0, otherInc: 0 };
+    let catTotals = { food: 0, transport: 0, entertainment: 0, hobby: 0, subsc: 0, otherExp: 0, salary: 0, pocketMoney: 0, otherInc: 0 };
 
     // 全期間（総資産用）
     history.forEach(item => {
@@ -95,6 +98,8 @@ function updateHistoryDisplay() {
             if (item.category === 'food') catTotals.food += item.amount;
             else if (item.category === 'transport') catTotals.transport += item.amount;
             else if (item.category === 'entertainment') catTotals.entertainment += item.amount;
+            else if (item.category === 'hobby') catTotals.hobby += item.amount;
+            else if (item.category === 'subsc') catTotals.subsc += item.amount;
             else catTotals.otherExp += item.amount;
         }
     });
@@ -135,7 +140,10 @@ function updateHistoryDisplay() {
     updateText('cat-food', `¥ ${catTotals.food.toLocaleString()}`);
     updateText('cat-transport', `¥ ${catTotals.transport.toLocaleString()}`);
     updateText('cat-entertainment', `¥ ${catTotals.entertainment.toLocaleString()}`);
+    updateText('cat-hobby', `¥ ${catTotals.hobby.toLocaleString()}`);
+    updateText('cat-subsc', `¥ ${catTotals.subsc.toLocaleString()}`);
     updateText('cat-other-exp', `¥ ${catTotals.otherExp.toLocaleString()}`);
+
     updateText('cat-salary', `¥ ${catTotals.salary.toLocaleString()}`);
     updateText('cat-pocket-money', `¥ ${catTotals.pocketMoney.toLocaleString()}`);
     updateText('cat-other-inc', `¥ ${catTotals.otherInc.toLocaleString()}`);
@@ -144,8 +152,21 @@ function updateHistoryDisplay() {
 
     // テーブルの描画
     historyList.innerHTML = '';
-    filteredHistory.forEach((item) => {
+
+    let dayTotal = 0;   // その日の合計（収支）
+    let dayCount = 0;   // その日の登録件数
+
+    filteredHistory.forEach((item, index) => {
+        // 1. その日の合計と件数をカウント
+        const amount = item.type === 'expense' ? -item.amount : item.amount;
+        dayTotal += amount;
+        dayCount++;
+
+        // 2. 通常の明細行を作成して追加
         const tr = document.createElement('tr');
+
+
+        
         const amountClass = item.type === 'expense' ? 'is-expense' : 'is-income';
         const sign = item.type === 'expense' ? '-' : '+';
         tr.innerHTML = `
@@ -156,6 +177,31 @@ function updateHistoryDisplay() {
             <td><button class="delete-btn" onclick="deleteTransaction('${item.id}')">削除</button></td>
         `;
         historyList.appendChild(tr);
+
+        // 3. 【重要】「次のデータの日付が違う」または「これが最後のデータ」なら合計行を出す
+        const nextItem = filteredHistory[index + 1];
+        const isLastItem = index === filteredHistory.length - 1;
+
+        if (isLastItem || nextItem.date !== item.date) {
+            // 同じ日に複数（2件以上）ある場合のみ合計を表示する
+            const totalTr = document.createElement('tr');
+            totalTr.className = 'daily-total-row'; // スタイル用のクラス
+                
+            const totalSign = dayTotal >= 0 ? "+" : "";
+            const totalColor = dayTotal >= 0 ? "#3d9b3d" : "#d95252";
+
+            totalTr.innerHTML = `
+                <td colspan="2" style="font-weight: 600;">この日の合計:</td>
+                <td colspan="3" style="font-weight: bold; color: ${totalColor}; text-align: left;">
+                    ${totalSign} ¥${dayTotal.toLocaleString()}
+                </td>
+            `;
+            historyList.appendChild(totalTr);
+            
+            // 日付が変わるのでリセット
+            dayTotal = 0;
+            dayCount = 0;
+        }
     });
 
     // 前月比の計算
@@ -183,18 +229,22 @@ function updateChart(catTotals) {
 
     // グラフに表示するデータ
     const data = {
-        labels: ['食費', '交通費', '交際費', 'その他'],
+        labels: ['食費', '交通費', '交際費', '趣味・嗜好', 'サブスク', 'その他'],
         datasets: [{
             data: [
                 catTotals.food,
                 catTotals.transport,
                 catTotals.entertainment,
+                catTotals.hobby,
+                catTotals.subsc,
                 catTotals.otherExp
             ],
             backgroundColor: [
                 '#FF6384', // 食費：ピンク
                 '#36A2EB', // 交通費：青
                 '#FFCE56', // 交際費：黄
+                '#9966ff',  // その他：緑
+                '#87aa66',  // その他：緑
                 '#4BC0C0'  // その他：緑
             ],
             hoverOffset: 4
@@ -279,7 +329,7 @@ function renderLineChart() {
                     type: 'linear',
                     display: true,
                     position: 'left',
-                    title: { display: true, text: '総資産' },
+                    title: { display: false, text: '総資産' },
                     beginAtZero: false,      // 資産額なら false の方が推移が強調されます
                     grace: '5%',              // 上下に少しだけ余白を作る
                     ticks: {
@@ -301,7 +351,7 @@ function renderLineChart() {
                     display: true,
                     position: 'right',
                     grid: { drawOnChartArea: false }, // 右側のグリッド線は消す
-                    title: { display: true, text: '月間収支' },
+                    title: { display: false, text: '月間収支' },
                     ticks: {
                         // ここでラベルの表示形式をカスタマイズ
                         callback: function (value, index, values) {
@@ -576,8 +626,13 @@ moneyForm?.addEventListener('submit', async (e) => {
         category: cat, memo: fd.get('memo')
     }]);
 
-    if (error) alert("保存失敗");
-    else { alert("保存成功！"); moneyForm.reset(); updateCategoryMenu('expense'); fetchTransactions(); }
+    if (error) alert("保存に失敗しました...");
+    else { alert("保存しました"); moneyForm.reset(); updateCategoryMenu('expense'); fetchTransactions(); }
+});
+
+document.getElementById('filter-category')?.addEventListener('change', (e) => {
+    currentCategory = e.target.value;
+    updateHistoryDisplay(); // 選択が変わるたびに再描画
 });
 
 // 初期起動
