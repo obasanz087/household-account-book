@@ -1,18 +1,19 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>入出金記録</title>
+    <title>AnalyWallet</title>
     <link rel="stylesheet" href="destyle.css">
     <link rel="stylesheet" href="style.css">
     <!--supabase-->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Lato:wght@400;700;900&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
 
+    <link rel="icon" href="img/favicon.ico">
     <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -31,19 +32,24 @@
 <body>
     <div id="auth-container">
         <div class="auth_box">
-            <h2 id="auth-title"><span>入出金記録</span> へようこそ！</h2>
+            <h2 id="auth-title"><span>AnalyWallet</span> へようこそ！</h2>
             <form id="auth-form">
                 <input type="email" id="auth-email" placeholder="メールアドレス" required>
                 <input type="password" id="auth-password" placeholder="パスワード" required>
                 <button type="submit" id="auth-submit-btn">ログイン</button>
             </form>
             <p id="auth-toggle">新規登録はこちら</p>
-            <p class="auth-copyright">© 2026 入出金記録.</p>
+            <p class="auth-copyright">© 2026 AnalyWallet.</p>
         </div>
     </div>
     <div id="app-container">
         <header>
-            <h1>入出金記録</h1>
+            <div class="hedaer_logo">
+                <span class="logo_img">
+                    <img src="img/logo.png">
+                </span>
+                <h1>AnalyWallet</h1>
+            </div>
             <ul class="header__navlist">
                 <li><a href="index.html#summary_container">ダッシュボード</a></li>
                 <li><a href="index.html#register_container">収支登録</a></li>
@@ -290,7 +296,7 @@
 
         </main>
         <footer>
-            <p class="copyright">© 2026 入出金記録.</p>
+            <p class="copyright">© 2026 AnalyWallet.</p>
             <p class="message">2026/02/18　彼女との別れがつらすぎて作ったんだよ。将来の自分、覚えておいてね</p>
             <a target="_blank" href="https://supabase.com/dashboard/org/gbaaccsyievdmutnuero">supabase</a>
             <div id="app-container foot">

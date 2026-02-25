@@ -469,7 +469,7 @@ document.getElementById('auth-form').addEventListener('submit', async (e) => {
 // ログイン/新規登録のモード切替
 document.getElementById('auth-toggle').addEventListener('click', () => {
     isLoginMode = !isLoginMode;
-    document.getElementById('auth-title').innerText = isLoginMode ? "入出金記録 へようこそ！" : "新規登録";
+    document.getElementById('auth-title').innerText = isLoginMode ? "AnalyWallet へようこそ！" : "新規登録";
     document.getElementById('auth-submit-btn').innerText = isLoginMode ? "ログイン" : "登録する";
     document.getElementById('auth-toggle').innerText = isLoginMode ? "新規登録はこちら" : "ログインはこちら";
 });
