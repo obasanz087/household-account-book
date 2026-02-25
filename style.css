@@ -87,6 +87,7 @@ header {
 }
 header .hedaer_logo {
   position: relative;
+  z-index: -1;
 }
 @media screen and (max-width: 599px) {
   header .hedaer_logo {
@@ -119,7 +120,7 @@ header .hedaer_logo .logo_img {
 header .hedaer_logo .logo_img {
   display: inline-block;
   position: absolute;
-  top: 50%;
+  top: 47.5%;
   left: 0;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);

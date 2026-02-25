@@ -104,6 +104,7 @@ header{
     padding: 0 5%;
     .hedaer_logo{
         position: relative;
+        z-index: -1;
         @include mq(sm) {
             line-height:75px;
             }
@@ -127,7 +128,7 @@ header{
             }
             display:inline-block;
             position: absolute;
-            top:50%;
+            top:47.5%;
             left:0;
             transform: translateY(-50%);
             img{

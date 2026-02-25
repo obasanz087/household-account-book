@@ -1,5 +1,5 @@
 {
-  "name": "Analyze_Wallet",
+  "name": "AnalyWallet",
   "short_name": "AnalyWallet",
   "start_url": "index.html",
   "display": "standalone",
