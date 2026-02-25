@@ -1,8 +1,11 @@
 {
-  "name": "AnalyWallet",
+  "name": "Analyze_Wallet",
   "short_name": "AnalyWallet",
   "start_url": "index.html",
   "display": "standalone",
+  "background_color": "#FEFAF6",
+  "theme_color": "#FEFAF6",
+
   "icons": [
     {
       "src": "img/logo192.png",
