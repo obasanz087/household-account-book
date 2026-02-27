@@ -51,7 +51,7 @@ body {
   border: 2px solid #f7f1e9;
   border-radius: 10px;
   font-size: 16px;
-  font-family: "Lato";
+  font-family: "Albert Sans";
 }
 #auth-container .auth_box input:focus {
   border-color: #102C57;
@@ -152,6 +152,7 @@ header .header__navlist li {
 header .header__navlist li a {
   text-decoration: none;
   color: #000;
+  padding: 5px 0;
 }
 header .header__navlist li a:visited {
   color: #000;
@@ -230,8 +231,9 @@ main .year_select_wrapper button:hover {
   color: #fff;
 }
 main .year_select_wrapper #display-year {
-  font-family: "Lato", sans-serif;
+  font-family: "Albert Sans", sans-serif;
   margin: 0 15px;
+  font-weight: 600;
 }
 main .year_select_wrapper #next-year::before {
   content: "\e315";
@@ -296,7 +298,7 @@ main .smm_grid_wrapper .grid_inner {
   position: relative;
 }
 main .smm_grid_wrapper .grid_inner .grid_yen {
-  font-family: "Lato", sans-serif;
+  font-family: "Albert Sans", sans-serif;
   font-size: 35px;
 }
 @media screen and (max-width: 599px) {
@@ -307,6 +309,12 @@ main .smm_grid_wrapper .grid_inner .grid_yen {
 main .smm_grid_wrapper .grid_inner .grid_yen {
   top: 50%;
   margin: 10px 0 10px 0;
+  letter-spacing: -0.05rem;
+}
+main .smm_grid_wrapper .grid_inner .grid_yen::before {
+  content: "¥";
+  font-size: 28px;
+  padding-right: 5px;
 }
 main .smm_grid_wrapper .grid_inner #carry-over-display {
   font-size: 13px;
@@ -335,7 +343,7 @@ main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper .grid_inner-flex_wra
           flex: 1;
 }
 main .smm_grid_wrapper .grid_inner .grid_inner-flex_wrapper .grid_inner-flex_wrapper p {
-  font-family: "Lato", sans-serif;
+  font-family: "Albert Sans", sans-serif;
 }
 main .smm_grid_wrapper .grid_inner .chart {
   -webkit-box-flex: 1;
@@ -514,7 +522,7 @@ main #transaction-table tr.is-day-start td {
   border-top: solid 2px #EADBC8;
 }
 main #transaction-table tbody {
-  font-family: "Lato", "Noto Sans JP", sans-serif;
+  font-family: "Albert Sans", "Noto Sans JP", sans-serif;
 }
 main .daily-total-row {
   background-color: #efeeec;

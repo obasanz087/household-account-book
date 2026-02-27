@@ -119,15 +119,15 @@ function updateHistoryDisplay() {
 
     // --- ③ 画面描画 (DOM反映) ---
     // 基本収支
-    updateText('display-income', `¥ ${monthlyIncome.toLocaleString()}`);
-    updateText('display-expense', `¥ ${monthlyExpense.toLocaleString()}`);
-    updateText('display-total', `¥ ${currentBalance.toLocaleString()}`);
+    updateText('display-income', `${monthlyIncome.toLocaleString()}`);
+    updateText('display-expense', `${monthlyExpense.toLocaleString()}`);
+    updateText('display-total', `${currentBalance.toLocaleString()}`);
 
     // 収入 - 支出
     const diffAmount = monthlyIncome - monthlyExpense;
     const diffEl = document.getElementById('display-diff');
     if (diffEl) {
-        diffEl.innerText = `¥ ${diffAmount.toLocaleString()}`;
+        diffEl.innerText = `${diffAmount.toLocaleString()}`;
         diffEl.style.color = diffAmount < 0 ? "#d95252" : "#000";
     }
 
