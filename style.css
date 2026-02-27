@@ -314,6 +314,13 @@ main .smm_grid_wrapper .grid_inner .grid_yen {
 main .smm_grid_wrapper .grid_inner .grid_yen::before {
   content: "¥";
   font-size: 28px;
+}
+@media screen and (max-width: 599px) {
+  main .smm_grid_wrapper .grid_inner .grid_yen::before {
+    font-size: 20px;
+  }
+}
+main .smm_grid_wrapper .grid_inner .grid_yen::before {
   padding-right: 5px;
 }
 main .smm_grid_wrapper .grid_inner #carry-over-display {

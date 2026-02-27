@@ -306,6 +306,9 @@ main{
                 &::before{
                     content: '\0a5';
                     font-size: 28px;
+                    @include mq(sm) {
+                        font-size:20px;
+                    }
                     padding-right: 5px;
                 }
 
