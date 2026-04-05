@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>AnalyWallet</title>
@@ -8,7 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, viewport-fit=cover">
@@ -19,7 +22,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="家計簿">
     <link rel="apple-touch-icon" href="icon-192.png">
-    
+
     <script>
         // サービスワーカーの登録
         if ('serviceWorker' in navigator) {
@@ -29,6 +32,7 @@
     </script>
 
 </head>
+
 <body>
     <div id="auth-container">
         <div class="auth_box">
@@ -70,7 +74,7 @@
             <section id="summary_container">
                 <h2>ダッシュボード</h2>
                 <div class="year_select_wrapper">
-                    <button  type="button" id="prev-year"></button>
+                    <button type="button" id="prev-year"></button>
                     <span id="display-year">2026</span>
                     <button type="button" id="next-year"></button>
                 </div>
@@ -222,36 +226,36 @@
                     <div class="form_group">
                         <label class="req">収支選択</label>
                         <div class="radio_wrapper">
-                            <input type="radio" id="type-expense" name="transaction-type" value="expense" checked >
+                            <input type="radio" id="type-expense" name="transaction-type" value="expense" checked>
                             <label for="type-expense">支出</label>
-                
+
                             <input type="radio" id="type-income" name="transaction-type" value="income">
                             <label for="type-income">収入</label>
                         </div>
                     </div>
-                
+
                     <div class="form_group">
                         <label for="date" class="req">日付</label>
                         <input type="date" id="date" name="date" required>
                     </div>
-                
+
                     <div class="form_group">
                         <label for="amount" class="req">金額</label>
                         <input type="number" id="amount" name="amount" placeholder="金額を入力" required>
                         <p class="yen_char">円</p>
                     </div>
-                
+
                     <div class="form_group">
                         <label for="category" class="req category">カテゴリー</label>
                         <select id="category" name="category" required>
                         </select>
                     </div>
-                
+
                     <div class="form_group">
                         <label for="memo">メモ</label>
                         <textarea id="memo" name="memo" placeholder="備考を入力"></textarea>
                     </div>
-                
+
                     <button type="submit" class="submit_btn">保存する</button>
                 </form>
             </section>
@@ -307,4 +311,5 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

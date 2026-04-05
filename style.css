@@ -519,7 +519,7 @@ main #transaction-table th .filter_wrapper::after {
   position: absolute;
 }
 main #transaction-table td {
-  padding: 10px 15px;
+  padding: 15px 15px 10px;
   border-bottom: 1px solid #f7f1e9;
 }
 main #transaction-table tr:hover {
@@ -530,6 +530,7 @@ main #transaction-table tr.is-day-start td {
 }
 main #transaction-table tbody {
   font-family: "Albert Sans", "Noto Sans JP", sans-serif;
+  line-height: 1;
 }
 main .daily-total-row {
   background-color: #efeeec;

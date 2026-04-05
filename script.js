@@ -166,7 +166,7 @@ function updateHistoryDisplay() {
         const tr = document.createElement('tr');
 
 
-        
+
         const amountClass = item.type === 'expense' ? 'is-expense' : 'is-income';
         const sign = item.type === 'expense' ? '-' : '+';
         tr.innerHTML = `
@@ -186,7 +186,7 @@ function updateHistoryDisplay() {
             // 同じ日に複数（2件以上）ある場合のみ合計を表示する
             const totalTr = document.createElement('tr');
             totalTr.className = 'daily-total-row'; // スタイル用のクラス
-                
+
             const totalSign = dayTotal >= 0 ? "+" : "";
             const totalColor = dayTotal >= 0 ? "#3d9b3d" : "#d95252";
 
@@ -197,7 +197,7 @@ function updateHistoryDisplay() {
                 </td>
             `;
             historyList.appendChild(totalTr);
-            
+
             // 日付が変わるのでリセット
             dayTotal = 0;
             dayCount = 0;
@@ -206,7 +206,7 @@ function updateHistoryDisplay() {
 
     // 前月比の計算
     calculatePrevMonthDiff(monthlyIncome, monthlyExpense);
-    
+
     //円グラフ・棒グラフの表示制御
     if (currentMonth === 'annual') {
         document.getElementById('annual-chart-container').style.display = 'block';
@@ -391,7 +391,7 @@ function getMonthlyStatsData() {
         const inc = currentMonthData
             .filter(item => item.type === 'income' && item.category !== 'carry_over')
             .reduce((acc, item) => acc + item.amount, 0);
-        
+
         const exp = currentMonthData
             .filter(item => item.type === 'expense')
             .reduce((acc, item) => acc + item.amount, 0);

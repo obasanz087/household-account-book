@@ -498,7 +498,7 @@ main{
         }
     }
     td{
-        padding: 10px 15px;
+        padding: 15px 15px 10px;
         border-bottom: 1px solid $acc1;
     }
     tr{
@@ -514,6 +514,7 @@ main{
     }
     tbody{
         font-family: 'Albert Sans', 'Noto Sans JP', sans-serif;
+        line-height:1 ;
     }
 }
 
