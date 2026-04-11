@@ -383,6 +383,7 @@ main{
 
         }
     }
+    
 
     form{
         margin:50px 0;
@@ -468,6 +469,9 @@ main{
             }
         }
     }
+    form::-webkit-date-and-time-value {
+        text-align: left;
+    }
 
 .table-wrapper {
     overflow-x: auto; // 横に溢れたらスクロールさせる
@@ -500,6 +504,9 @@ main{
     td{
         padding: 15px 15px 10px;
         border-bottom: 1px solid $acc1;
+        &.btn_wrapper{
+            padding: 0!important;
+        }
     }
     tr{
         &:hover{
@@ -534,17 +541,16 @@ main{
 }
 
 .delete-btn {
-    background-color: #ff4d4d;
-    color: white;
+    background-color: #f5b6b6;
+    padding: 16.5px 15px 11.5px;
+    margin-left:15px;
     border: none;
-    padding: 3px 10px;
-    border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
 }
 
 .delete-btn:hover {
-    background-color: #d93d3d;
+    background-color: #fd8585;
 }
 
 

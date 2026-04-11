@@ -490,6 +490,9 @@ main form .submit_btn:hover {
   color: #fff;
   font-weight: 500;
 }
+main form::-webkit-date-and-time-value {
+  text-align: left;
+}
 main .table-wrapper {
   overflow-x: auto;
   white-space: nowrap;
@@ -522,6 +525,9 @@ main #transaction-table td {
   padding: 15px 15px 10px;
   border-bottom: 1px solid #f7f1e9;
 }
+main #transaction-table td.btn_wrapper {
+  padding: 0 !important;
+}
 main #transaction-table tr:hover {
   background-color: #f7f1e9;
 }
@@ -551,16 +557,15 @@ main .history-item {
           align-items: center;
 }
 main .delete-btn {
-  background-color: #ff4d4d;
-  color: white;
+  background-color: #f5b6b6;
+  padding: 16.5px 15px 11.5px;
+  margin-left: 15px;
   border: none;
-  padding: 3px 10px;
-  border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
 }
 main .delete-btn:hover {
-  background-color: #d93d3d;
+  background-color: #fd8585;
 }
 
 footer {

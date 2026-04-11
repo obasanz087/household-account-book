@@ -174,7 +174,7 @@ function updateHistoryDisplay() {
             <td>${getCategoryLabel(item.category)}</td>
             <td class="${amountClass}">${sign} ¥${item.amount.toLocaleString()}</td>
             <td>${item.memo || '-'}</td>
-            <td><button class="delete-btn" onclick="deleteTransaction('${item.id}')">削除</button></td>
+            <td class="btn_wrapper"><button class="delete-btn" onclick="deleteTransaction('${item.id}')">削除</button></td>
         `;
         historyList.appendChild(tr);
 
